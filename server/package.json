@@ -1,0 +1,13 @@
+{
+  "name": "angular-auth-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "author": "Ryan Chenkie (Auth0)",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "express-jwt": "^3.3.0"
+  }
+}

@@ -58,9 +58,9 @@
               auth.authenticate(store.get('profile'), token);
             }
           } 
-        } 
-        else {          
-          // Otherwise, redirect to the home route
+        }
+
+        if (!auth.isAuthenticated) {
           $location.path('/home');
         }
       });

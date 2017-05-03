@@ -11,10 +11,10 @@ var authCheck = jwt({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: "https://adobot.auth0.com/.well-known/jwks.json"
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/.well-known/jwks.json"
     }),
-    audience: 'angular',
-    issuer: "https://adobot.auth0.com/",
+    audience: '{YOUR-AUTH0-API-AUDIENCE}',
+    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
     algorithms: ['RS256']
 });
 

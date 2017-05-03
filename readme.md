@@ -1,62 +1,51 @@
 # AngularJS Authentication with Auth0
 
-This repo shows how to implement authentication in an AngularJS 1.x application. It goes along with SitePoint's [Easy AngularJS Authentication with Auth0](#) article.
+This repo shows how to implement authentication in an AngularJS 1.x application. It goes along with SitePoint's [Easy AngularJS Authentication with Auth0](https://www.sitepoint.com/easy-angularjs-authentication-with-auth0/) article.
 
-## Installation and Running the App
+## Getting Started
 
-Clone the repo, then:
+To run this quickstart you can fork and clone this repo. You will need an Auth0 account to run the example. [Sign up](https://auth0.com/signup) for a free account and then go to your [dashboard](https://manage.auth0.com) to get your credentials.
 
-```bash
-# Install front-end dependencies
-npm install
-npm install http-server -g
+Be sure to set the correct values for your Auth0 application in the `auth0.variables.js` file.
 
-# Install server dependencies
-cd server && npm install
-```
-
-You will need an Auth0 account to run the example. [Sign up](https://auth0.com/signup) for a free account and then go to your [dashboard](https://manage.auth0.com) to get your credentials.
-
-Enter your domain and client ID for the front end.
-
-```js
-// app.js
-
-...
-
-authProvider.init({
-  domain: 'YOUR_AUTH0_DOMAIN',
-  clientID: 'YOUR_AUTH0_CLIENT_ID'
-});
-
-...
-```
-
-Then enter your client ID and client secret for the **express-jwt** middleware in the backend.
-
-```js
-// server/server.js
-
-...
-
-var authCheck = jwt({
-  secret: new Buffer('YOUR_AUTH0_SECRET', 'base64'),
-  audience: 'YOUR_AUTH0_CLIENT_ID'
-});
-
-...
-```
-
-With your credentials in place, you can run the app.
+To run the application:
 
 ```bash
-# Run the server
-node server.js
+# Install the dependencies
+bower install
 
-# Run the front-end (in a new console tab)
-cd ..
+# Install simple web server
+npm install -g http-server
+
+# Run
 http-server
 ```
+
+To run the server:
+
+Open the `server` directory and run
+
+```bash
+npm install
+```
+
+to install the dependencies needed for the server. Next open up the `server.js` file and add your credentials:
+
+```js
+var authCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/.well-known/jwks.json"
+    }),
+    audience: '{YOUR-AUTH0-API-IDENTIFIER}',
+    issuer: "https://{YOUR-AUTH0-DOMAIN}.auth0.com/",
+    algorithms: ['RS256']
+});
+```
+
+Run the server by executing the `node server` command.
 
 ## What is Auth0?
 

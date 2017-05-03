@@ -1,13 +1,21 @@
 var express = require('express');
 var app = express();
 var jwt = require('express-jwt');
+var jwks = require('jwks-rsa');
 var cors = require('cors');
 
 app.use(cors());
 
 var authCheck = jwt({
-  secret: new Buffer('YOUR_AUTH0_SECRET', 'base64'),
-  audience: 'YOUR_AUTH0_CLIENT_ID'
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://adobot.auth0.com/.well-known/jwks.json"
+    }),
+    audience: 'angular',
+    issuer: "https://adobot.auth0.com/",
+    algorithms: ['RS256']
 });
 
 app.get('/api/public', function(req, res) {

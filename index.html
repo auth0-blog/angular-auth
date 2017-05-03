@@ -1,34 +1,47 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="authApp">
-<head>
-  <meta charset="UTF-8">
-  <title>Angular Auth</title>
-  <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
-  <!-- Auth0 Lock script and AngularJS module -->
-  <script src="//cdn.auth0.com/js/lock-9.2.min.js"></script>
+<html>
+  <head>
+    <title>AngularJS Authentication</title>
 
-  <!-- Setting the right viewport -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-</head>
-<body>
-  
-  <toolbar></toolbar>
-  
-  <div layout-padding>
-    <ui-view></ui-view>
-  </div>
-  
-  <script src="node_modules/angular/angular.js"></script>
-  <script src="node_modules/angular-animate/angular-animate.js"></script>
-  <script src="node_modules/angular-aria/angular-aria.js"></script>
-  <script src="node_modules/angular-material/angular-material.js"></script>
-  <script src="node_modules/angular-jwt/dist/angular-jwt.js"></script>
-  <script src="node_modules/angular-storage/dist/angular-storage.js"></script>
-  <script src="node_modules/auth0-angular/build/auth0-angular.js"></script>
-  <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
-  
-  <script src="app.js"></script>
-  <script src="components/toolbar/toolbar.dir.js"></script>
-  <script src="components/profile/profile.ctr.js"></script>
-</body>
+    <!-- Viewport settings-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Basic style -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+      <style>
+      .navbar{
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-app="app">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="home">Auth0</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ng-if="!auth.isAuthenticated()"><a ng-click="auth.login()">Log In</a></li>
+              <li ng-if="auth.isAuthenticated()"><a ng-click="auth.logout()">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div ui-view></div>
+    </div>
+
+    <script type="text/javascript" src="auth0-variables.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="bower_components/auth0.js/build/auth0.js"></script>
+    <script type="text/javascript" src="bower_components/angular-auth0/dist/angular-auth0.js"></script>
+    <script type="text/javascript" src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="app.run.js"></script>
+    <script type="text/javascript" src="components/home/home.controller.js"></script>
+    <script type="text/javascript" src="components/auth/auth.service.js"></script>
+  </body>
 </html>
